@@ -21,7 +21,7 @@ from typing import Any
 from pynxtools.dataconverter.readers.base.reader import BaseReader
 
 
-class XASReader(BaseReader):
+class XasReader(BaseReader):
     """Reader for XAS."""
 
     supported_nxdls = ["NXxas_new"]
@@ -38,4 +38,4 @@ class XASReader(BaseReader):
         return template
 
 
-READER = XASReader
+READER = XasReader

@@ -47,12 +47,13 @@ docs = [
 ]
 
 
+
 [project.urls]
 "Homepage" = "https://github.com/FAIRmat-NFDI/pynxtools-xas"
 "Bug Tracker" = "https://github.com/FAIRmat-NFDI/pynxtools-xas/issues"
 
 [project.entry-points.'pynxtools.reader']
-xas = "pynxtools_xas.reader:XASReader"
+xas = "pynxtools_xas.reader:XasReader"
 
 [tool.setuptools.packages.find]
 where = [
@@ -64,7 +65,7 @@ version_scheme = "no-guess-dev"
 local_scheme = "node-and-date"
 
 [tool.ruff]
-include = ["src/pynxtools_xas/*.py", "tests/*.py"]
+include = ["src/pynxtools_xas/**/*.py", "tests/**/*.py"]
 line-length = 88
 indent-width = 4
 
