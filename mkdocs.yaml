@@ -1,7 +1,7 @@
 site_name: Documentation for pynxtools-xas
 site_description: |
   The documentation for the pynxtools-xas plugin.
-site_author: The FAIRmat authors
+site_author: Lukas Pielsticker
 repo_url: https://github.com/FAIRmat-NFDI/pynxtools-xas
 edit_uri: ""
 

@@ -28,7 +28,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "mypy",
-    "ruff>=0.14.0",
+    "ruff>=0.15.0",
     "pytest",
     "pytest-cov",
     "pytest-timeout",
@@ -36,6 +36,7 @@ dev = [
     "types-pytz",
     "types-requests",
     "pre-commit",
+    "cruft",
 ]
 docs = [
     "mkdocs",
@@ -53,7 +54,7 @@ docs = [
 "Bug Tracker" = "https://github.com/FAIRmat-NFDI/pynxtools-xas/issues"
 
 [project.entry-points.'pynxtools.reader']
-xas = "pynxtools_xas.reader:XasReader"
+xas = "pynxtools_xas.reader:XASReader"
 
 [tool.setuptools.packages.find]
 where = [
