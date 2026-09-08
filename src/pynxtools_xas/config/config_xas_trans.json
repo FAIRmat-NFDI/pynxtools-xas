@@ -1,0 +1,38 @@
+{
+  "/ENTRY/@default": "data",
+  "/ENTRY/definition": "NXxas_trans",
+  "/ENTRY/title": "['@attrs:title', '@eln']",
+  "/ENTRY/start_time": "@attrs:start_time",
+  "/ENTRY/is_experimental": true,
+
+  "/ENTRY/element/name": "['@attrs:element_name', '@eln']",
+  "/ENTRY/edge/name": "['@attrs:edge_name', '@eln']",
+  "/ENTRY/edge/energy": "@attrs:edge_energy",
+  "/ENTRY/edge/energy/@units": "eV",
+
+  "/ENTRY/energy": "@data:energy",
+  "/ENTRY/energy/@units": "eV",
+  "/ENTRY/intensity": "@data:intensity",
+
+  "/ENTRY/SAMPLE[sample]/name": "['@attrs:sample_name', '@eln']",
+
+  "/ENTRY/INSTRUMENT[instrument]/SOURCE[source]/name": "@attrs:source_name",
+  "/ENTRY/INSTRUMENT[instrument]/SOURCE[source]/type": "@attrs:source_type",
+  "/ENTRY/INSTRUMENT[instrument]/SOURCE[source]/probe": "@attrs:source_probe",
+
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[i0]/data": "@attrs:i0_data",
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[itrans]/data": "@attrs:itrans_data",
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[iref]/data": "@attrs:iref_data",
+
+  "/ENTRY/PROCESS[process]/program": "@attrs:process_program",
+  "/ENTRY/PROCESS[process]/version": "@attrs:process_version",
+  "/ENTRY/PROCESS[process]/note/type": "text/x-python",
+  "/ENTRY/PROCESS[process]/note/data": "!@attrs:process_notes",
+  "/ENTRY/PROCESS[process]/PARAMETERS[parameters]/normalized_intensity": "!@attrs:normalized_intensity",
+  "/ENTRY/PROCESS[process]/PARAMETERS[parameters]/normalized_intensity/@long_name": "edge-step normalized mu(E), i.e. (mu - pre_edge) / edge_step",
+
+  "/ENTRY/DATA[data]/@signal": "intensity",
+  "/ENTRY/DATA[data]/@axes": ["energy"],
+  "/ENTRY/DATA[data]/energy": "@link:/entry/energy",
+  "/ENTRY/DATA[data]/intensity": "@link:/entry/intensity"
+}

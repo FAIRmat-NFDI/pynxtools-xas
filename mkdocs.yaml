@@ -10,6 +10,8 @@ nav:
   - Tutorials:
     - tutorial/installation.md
     - tutorial/contributing.md
+  - Reference:
+    - reference/file_formats.md
 
 plugins:
   - search

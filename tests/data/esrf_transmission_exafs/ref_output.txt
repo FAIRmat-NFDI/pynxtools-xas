@@ -1,0 +1,2 @@
+WARNING: The required field /ENTRY[scan_10_1]/INSTRUMENT[instrument]/SOURCE[source]/type hasn't been supplied.
+WARNING: The required field /ENTRY[scan_10_1]/INSTRUMENT[instrument]/SOURCE[source]/name hasn't been supplied.

@@ -1,0 +1,30 @@
+{
+  "/ENTRY/@default": "data",
+  "/ENTRY/definition": "NXxas",
+  "/ENTRY/title": "@attrs:title",
+  "/ENTRY/start_time": "@attrs:time_stamp",
+  "/ENTRY/is_experimental": true,
+
+  "/ENTRY/element/name": "@attrs:element_name",
+  "/ENTRY/edge/name": "@attrs:edge_name",
+
+  "/ENTRY/energy": "@data:energy",
+  "/ENTRY/energy/@units": "eV",
+  "/ENTRY/intensity": "@data:intensity",
+  "/ENTRY/intensity/@units": "counts_per_second",
+
+  "/ENTRY/SAMPLE[sample]/name": "@eln",
+
+  "/ENTRY/INSTRUMENT[instrument]/@default": "i0",
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[i0]/@default": "plot",
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[i0]/data": "@attrs:i0_mirror",
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[i0]/DATA[plot]/@signal": "i0",
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[i0]/DATA[plot]/@axes": ["energy"],
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[i0]/DATA[plot]/i0": "@link:/entry/instrument/i0/data",
+  "/ENTRY/INSTRUMENT[instrument]/DETECTOR[i0]/DATA[plot]/energy": "@link:/entry/energy",
+
+  "/ENTRY/DATA[data]/@signal": "intensity",
+  "/ENTRY/DATA[data]/@axes": ["energy"],
+  "/ENTRY/DATA[data]/energy": "@link:/entry/energy",
+  "/ENTRY/DATA[data]/intensity": "@link:/entry/intensity"
+}

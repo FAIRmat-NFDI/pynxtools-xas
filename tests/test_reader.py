@@ -26,36 +26,38 @@ from pynxtools.testing.nexus_conversion import ReaderTest
 
 READER_NAME = "xas"
 READER_CLASS = get_reader(READER_NAME)
-NXDLS = READER_CLASS.supported_nxdls
 
 # Define lines/sections to be ignored in _all_ test cases
 ignore_lines_all_tests: list = []
 ignore_sections_all_tests: dict = {}
 
-# Test cases should be [("folder", ignore_lines, ignore_sections, "test-id")]
-test_cases: list[tuple[str, list[Any], dict[Any, Any], str]] = [
-    ("folder", [], {}, "test-id"),
+# Each fixture folder targets exactly one NXDL application definition (the
+# one its parser's config declares under "definition"), not the full cross
+# product of the reader's supported_nxdls.
+# Test cases should be [("folder", "nxdl", ignore_lines, ignore_sections, "test-id")]
+test_cases: list[tuple[str, str, list[Any], dict[Any, Any], str]] = [
+    ("specs_xy_aey", "NXxas", [], {}, "specs-xy-aey"),
+    ("esrf_transmission_exafs", "NXxas_trans", [], {}, "esrf-transmission-exafs"),
+    ("oscars_xdi_transmission", "NXxas_trans", [], {}, "oscars-xdi-transmission"),
 ]
 
-test_params: list[Any] = []
-for test_case in test_cases:
-    for nxdl in NXDLS:
-        test_params += [
-            pytest.param(
-                nxdl,
-                test_case[0],
-                test_case[1],
-                test_case[2],
-                id=f"{test_case[3]}-{nxdl.lower()}",
-            )
-        ]
+test_params: list[Any] = [
+    pytest.param(
+        test_case[1],
+        test_case[0],
+        test_case[2],
+        test_case[3],
+        id=test_case[4],
+    )
+    for test_case in test_cases
+]
 
 
 @pytest.mark.parametrize(
     "nxdl, sub_reader_data_dir, ignore_lines, ignore_sections",
     test_params,
 )
-def test_nexus_conversion(
+def test_nexus_conversion(  # noqa: PLR0913, PLR0917
     nxdl, sub_reader_data_dir, ignore_lines, ignore_sections, tmp_path, caplog
 ):
     """

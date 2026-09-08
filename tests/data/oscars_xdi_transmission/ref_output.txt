@@ -1,0 +1,1 @@
+WARNING: The required field /ENTRY[feo]/INSTRUMENT[instrument]/SOURCE[source]/name hasn't been supplied.

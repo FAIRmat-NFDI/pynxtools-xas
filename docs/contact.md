@@ -6,7 +6,7 @@ You can reach us through different channels. You can send an email directly to o
 
 | Name | E-mail     | Github profiles |
 |------|------------|-----------------|
-| Lukas Pielsticker | [lukas.pielsticker@physik.hu-berlin.de](mailto:lukas.pielsticker@physik.hu-berlin.de) |  |
+| Dr. Lukas Pielsticker | [lukas.pielsticker@physik.hu-berlin.de](mailto:lukas.pielsticker@physik.hu-berlin.de) | [@lukaspie](https://github.com/lukaspie) |
 
 Alternatively, you can also:
 
