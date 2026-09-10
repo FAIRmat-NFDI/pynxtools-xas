@@ -26,6 +26,7 @@ ignore_sections_all_tests: dict = {}
 test_cases: list[tuple[str, str, list[Any], dict[Any, Any], str]] = [
     ("specs_xy_aey", "NXxas", [], {}, "specs-xy-aey"),
     ("esrf_transmission_exafs", "NXxas_trans", [], {}, "esrf-transmission-exafs"),
+    ("esrf_fluorescence_id21", "NXxas", [], {}, "esrf-fluorescence-id21"),
     ("oscars_xdi_transmission", "NXxas_trans", [], {}, "oscars-xdi-transmission"),
 ]
 

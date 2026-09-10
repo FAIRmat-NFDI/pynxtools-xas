@@ -17,9 +17,10 @@ function update_ref_file {
 
 # folder:nxdl
 cases=(
-  "specs_xy_aey:NXxas"
-  "esrf_transmission_exafs:NXxas_trans"
-  "oscars_xdi_transmission:NXxas_trans"
+  # "specs_xy_aey:NXxas"
+  "esrf_fluorescence_id21:NXxas"
+  # "esrf_transmission_exafs:NXxas_trans"
+  # "oscars_xdi_transmission:NXxas_trans"
 )
 
 project_dir=$(dirname $(dirname $(realpath $0)))

@@ -1,0 +1,24 @@
+{
+  "/ENTRY/@default": "data",
+  "/ENTRY/definition": "NXxas",
+  "/ENTRY/title": "['@attrs:title', '@eln']",
+  "/ENTRY/start_time": "@attrs:start_time",
+  "/ENTRY/is_experimental": true,
+
+  "/ENTRY/element/name": "['@attrs:element_name', '@eln']",
+  "/ENTRY/edge/name": "['@attrs:edge_name', '@eln']",
+
+  "/ENTRY/energy": "@data:energy",
+  "/ENTRY/energy/@units": "eV",
+  "/ENTRY/intensity": "@data:intensity",
+  "/ENTRY/intensity/@long_name": "fluorescence yield (a.u.)",
+
+  "/ENTRY/SAMPLE[sample]/name": "['@attrs:sample_name', '@eln']",
+
+  "/ENTRY/INSTRUMENT[instrument]/SOURCE[source]/probe": "x-ray",
+
+  "/ENTRY/DATA[data]/@signal": "intensity",
+  "/ENTRY/DATA[data]/@axes": ["energy"],
+  "/ENTRY/DATA[data]/energy": "@link:/entry/energy",
+  "/ENTRY/DATA[data]/intensity": "@link:/entry/intensity"
+}
