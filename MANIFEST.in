@@ -1,4 +1,4 @@
 prune *
 exclude *
-recursive-include src/pynxtools_xas *.py
+recursive-include src/pynxtools_xas *.py *.json
 include pyproject.toml README.md
