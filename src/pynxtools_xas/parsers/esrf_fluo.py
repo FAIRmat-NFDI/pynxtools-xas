@@ -45,7 +45,9 @@ _ESRF_TIMEZONE = ZoneInfo("Europe/Paris")
 # Averaged-fluorescence detector name, e.g. "avg_P_Ka1" -> element P, line Ka1.
 _AVG_FLUO = re.compile(r"^avg_(?P<element>[A-Z][a-z]?)_(?P<line>[A-Z][a-z]?\d*)$")
 # Normalized-corrected fluorescence name, e.g. "PKa_corr_norm0" -> P, Ka.
-_CORR_FLUO = re.compile(r"^(?P<element>[A-Z][a-z]?)(?P<line>K|L\d?|M)a?\d*_corr_norm\d*$")
+_CORR_FLUO = re.compile(
+    r"^(?P<element>[A-Z][a-z]?)(?P<line>K|L\d?|M)a?\d*_corr_norm\d*$"
+)
 
 # Energy-axis channel names seen across ID21 exports, in preference order.
 _ENERGY_NAMES = ("avg_energy", "enmonound", "enmono", "energy")
@@ -223,18 +225,26 @@ class EsrfFluoParser(_XASParser):
                 if isinstance(title, h5py.Dataset):
                     value = title[()]
                     metadata["title"] = (
-                        value.decode("utf-8") if isinstance(value, bytes) else str(value)
+                        value.decode("utf-8")
+                        if isinstance(value, bytes)
+                        else str(value)
                     )
                 sample = group.get("sample/name")
                 if isinstance(sample, h5py.Dataset):
                     value = sample[()]
                     metadata["sample_name"] = (
-                        value.decode("utf-8") if isinstance(value, bytes) else str(value)
+                        value.decode("utf-8")
+                        if isinstance(value, bytes)
+                        else str(value)
                     )
                 start = group.get("start_time")
                 if isinstance(start, h5py.Dataset):
                     value = start[()]
-                    text = value.decode("utf-8") if isinstance(value, bytes) else str(value)
+                    text = (
+                        value.decode("utf-8")
+                        if isinstance(value, bytes)
+                        else str(value)
+                    )
                     metadata["start_time"] = parse_datetime(text, tzinfo=_ESRF_TIMEZONE)
 
                 self._data[sanitize_entry_name(group_name)] = ParsedSpectrum(
