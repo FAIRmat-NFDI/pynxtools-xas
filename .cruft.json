@@ -5,7 +5,7 @@
   "context": {
     "cookiecutter": {
       "reader_name": "xas",
-      "supported_nxdl": "NXxas_new",
+      "supported_nxdl": "NXxas",
       "short_description": "pynxtools-xas is a pynxtools reader plugin for X-ray Absorption Spectroscopy (XAS) data",
       "technique": "XAS",
       "reader_class": "XASReader",

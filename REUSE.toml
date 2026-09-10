@@ -1,0 +1,46 @@
+version = 1
+
+exclude = [
+  ".worktrees/**",
+  ".venv/**",
+]
+
+[[annotations]]
+path = ["src/pynxtools_xas/**/*.json"]
+SPDX-FileCopyrightText = "The pynxtools-xas Authors"
+SPDX-License-Identifier = "Apache-2.0"
+
+
+# Non-code project files (docs, CI, tooling config) that can't practically
+# carry an inline header.
+[[annotations]]
+path = ["docs/**"]
+SPDX-FileCopyrightText = "The pynxtools-xas Authors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = [
+  ".cruft.json",
+  ".cspell/custom-dictionary.txt",
+  ".github/**",
+  ".gitignore",
+  ".gitmodules",
+  ".pre-commit-config.yaml",
+  ".vscode/settings.json",
+  "CITATION.cff",
+  "MANIFEST.in",
+  "README.md",
+  "cspell.json",
+  "mkdocs.yaml",
+  "pyproject.toml",
+]
+SPDX-FileCopyrightText = "The pynxtools-xas Authors"
+SPDX-License-Identifier = "Apache-2.0"
+
+# Example and test fixtures/readmes: data files, not source, so no inline header.
+[[annotations]]
+path = [
+  "tests/data/**",
+]
+SPDX-FileCopyrightText = "The pynxtools-xas Authors"
+SPDX-License-Identifier = "Apache-2.0"
