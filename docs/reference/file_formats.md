@@ -8,6 +8,7 @@ The reader picks a parser by **inspecting each file's content** (not just its ex
 |---|---|---|---|
 | SPECS (SpecsLabProdigy) | `.xy` | `NXxas` | Electron-yield (AEY/TEY) spectra; reuses `pynxtools-xps`' XY parsing. |
 | ESRF BM23 (transmission EXAFS) | `.h5` | `NXxas_trans` | Raw beamline scans; energy + `i0`/`itrans`/`iref` transmission channels. |
+| ESRF ID21 (fluorescence µXANES) | `.h5` | `NXxas` | Two Bliss export layouts: the `avg_energy` + `avg_<element>_<line>` convention (element/edge inferred from the emission line) and the older `plotselect` convention (energy/signal read from the entry's own `plotselect` NXdata; when its signal is a bare detector such as a diode that names no element, element/edge are propagated from a sibling averaged scan in the same file). Energy is normalized keV→eV. |
 | OSCARS XDI-derived | `.h5` | `NXxas_trans` | XDI-style transmission XAS pre-shaped close to NeXus. |
 | BESSY II mySpot (transmission) | `.h5` | `NXxas_trans` | Bliss/SPEC-numbered scans; `dcm_p_energy` energy axis. |
 
@@ -24,6 +25,9 @@ user@box:~$ pynx convert "2023-12-07_ID-39088_LaSrCoO3_BARIS_H2-500C.xy" --reade
 
 # ESRF BM23 transmission .h5 -> NXxas_trans
 user@box:~$ pynx convert "DAC6-QMo_ambient_10.1.h5" --reader xas --nxdl NXxas_trans --output esrf_example.nxs
+
+# ESRF ID21 fluorescence .h5 -> NXxas
+user@box:~$ pynx convert "LUCNJH18_poi28997_35602.h5" --reader xas --nxdl NXxas --output id21_example.nxs
 ```
 
 An ELN file (`.yaml`/`.yml`) can be supplied alongside the data file to provide metadata that the raw file does not carry (e.g. sample, element, edge for the mySpot scans).

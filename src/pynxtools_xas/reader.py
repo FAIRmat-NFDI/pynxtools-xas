@@ -15,6 +15,7 @@ from pynxtools.dataconverter.readers.multi.reader import MultiFormatReader
 from pynxtools.dataconverter.readers.utils import parse_yml
 
 from pynxtools_xas.parsers import (
+    EsrfFluoParser,
     EsrfTransParser,
     MySpotParser,
     OscarsXdiParser,
@@ -62,10 +63,11 @@ class XASReader(MultiFormatReader):
     config_file: str | Path | None = None
 
     parsers: list[type[_XASParser]] = [
-        SpecsXYParser,
-        OscarsXdiParser,
+        EsrfFluoParser,
         EsrfTransParser,
         MySpotParser,
+        OscarsXdiParser,
+        SpecsXYParser,
     ]
     supported_file_extensions: list[str] = _collect_supported_extensions(parsers)
 
