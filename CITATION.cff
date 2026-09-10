@@ -6,17 +6,22 @@ message:
   metadata from this file.
 type: software
 authors:
-  - given-names:
-    family-names:
+  - given-names: Lukas
+    family-names: Pielsticker
+    orcid: 'https://orcid.org/0000-0001-9361-8333'
 repository-code: https://github.com/FAIRmat-NFDI/pynxtools-xas
 keywords:
   - NeXus
   - pynxtools
   - NOMAD
+  - X-ray absorption spectroscopy
 abstract:
   pynxtools-xas is a reader plugin for pynxtools (https://github.com/FAIRmat-NFDI/pynxtools)
   written in Python.
 
+  pynxtools-xas is developed both as a standalone reader and as a tool within NOMAD, an open-source data
+  management platform for materials science ((https://nomad-lab.eu/nomad-lab/).
+ 
   The work is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - 460197019 (FAIRmat)
   (https://gepris.dfg.de/gepris/projekt/460197019?language=en).
 license: Apache Software License 2.0
@@ -24,4 +29,4 @@ funding:
   - name: Deutsche Forschungsgemeinschaft
     award-number: 460197019
     title: FAIRmat - FAIR Data Infrastructure for Condensed-Matter Physics and the Chemical Physics of Solids
-    award-uri: https://gepris.dfg.de/gepris/projekt/460197019?language=en
+    award-uri: https://gepris.dfg.de/project/460197019

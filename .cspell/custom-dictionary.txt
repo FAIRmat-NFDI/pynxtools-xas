@@ -28,6 +28,7 @@ ndarray
 normalised
 nxdl
 nxdls
+orcid
 pynx
 pynxtools
 readback

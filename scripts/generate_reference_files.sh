@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: The pynxtools-xas Authors
+#
+# This file is part of pynxtools-xas.
+#
+# SPDX-License-Identifier: Apache-2.0
 function update_ref_file {
   local FOLDER=$1
   local NXDL=$2

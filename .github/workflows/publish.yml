@@ -53,6 +53,9 @@ jobs:
       - name: Install pynxtools-xas
         run: |
           uv pip install -e ".[dev]"
+      - name: Install latest pynxtools release
+        run: |
+          uv pip install pynxtools          
       - name: Test with pytest
         run: pytest tests/
 
