@@ -261,7 +261,7 @@ class XASReader(MultiFormatReader):
     def read(
         self,
         template: dict = None,
-        file_paths: tuple[str] = None,
+        file_paths: tuple[str, ...] | None = None,
         objects: tuple[Any] | None = None,
         **kwargs,
     ) -> dict:
