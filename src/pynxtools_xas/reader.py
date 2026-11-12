@@ -8,6 +8,7 @@
 import datetime
 import logging
 import re
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +24,7 @@ from pynxtools_xas.parsers import (
     SpecsXYParser,
     _XASParser,
 )
+from pynxtools_xas.parsers.hdf5_utils import sanitize_entry_name
 
 logger = logging.getLogger("pynxtools")
 
@@ -77,7 +79,8 @@ class XASReader(MultiFormatReader):
         self.data: dict[str, ParsedSpectrum] = {}
         self.eln_data: dict[str, Any] = {}
         self._active_parsers: list[_XASParser] = []
-
+        # parsed spectra per input file, keyed by the resolved file path
+        self._parsed_files: dict[Path, dict[str, ParsedSpectrum]] = {}
         self.extensions: dict[str, Any] = {
             ".yml": self.handle_eln_file,
             ".yaml": self.handle_eln_file,
@@ -121,7 +124,9 @@ class XASReader(MultiFormatReader):
     def handle_data_file(self, file_path: str) -> dict[str, Any]:
         """Dispatch *file_path* to the matching parser."""
         file = Path(file_path)
-
+        if file.resolve() in self._parsed_files:
+            logger.warning(f"{file_path} was given more than once; reading it once.")
+            return {}
         matches = [P for P in self.parsers if P.is_mainfile(file)]
 
         if not matches:
@@ -147,10 +152,48 @@ class XASReader(MultiFormatReader):
             replace=False,
         )
 
-        self.data.update(parser.data)
+        self._parsed_files[file.resolve()] = parser.data
+        self.data = self._combine_entries()
         self._active_parsers.append(parser)
 
         return {}
+
+    def _combine_entries(self) -> dict[str, ParsedSpectrum]:
+        """
+        Collect the spectra of all input files under unique entry names.
+
+        An entry is named after its scan inside the file. If several files
+        contain a scan with the same name, the file name (without extension) is
+        prepended with "__", and then parent folder names, one level at a time,
+        until the names are unique (first.h5 and second.h5 give
+        first__scan_1 and second__scan_1; a/data.h5 and b/data.h5 give
+        a__data__scan_1 and b__data__scan_1).
+        """
+        # one item per (file, scan); its prefix parts are the folders and the stem
+        items = [
+            (path.parent.parts[1:] + (path.stem,), scan, spectrum)
+            for path, spectra in self._parsed_files.items()
+            for scan, spectrum in spectra.items()
+        ]
+        depth = [0] * len(items)
+
+        def name(index: int) -> str:
+            parts, scan, _ = items[index]
+            if depth[index] == 0:
+                return scan
+            return sanitize_entry_name("__".join(parts[-depth[index] :] + (scan,)))
+
+        while True:
+            counts = Counter(name(i) for i in range(len(items)))
+            clashing = [i for i in range(len(items)) if counts[name(i)] > 1]
+            if not clashing:
+                return {name(i): items[i][2] for i in range(len(items))}
+            for i in clashing:
+                if depth[i] == len(items[i][0]):
+                    raise ValueError(
+                        f"Could not find a unique entry name for scan '{items[i][1]}'."
+                    )
+                depth[i] += 1
 
     def get_entry_names(self) -> list[str]:
         """Returns the entry names constructed from the parsed data."""
