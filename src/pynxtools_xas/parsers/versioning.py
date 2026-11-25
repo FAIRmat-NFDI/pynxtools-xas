@@ -3,129 +3,28 @@
 # This file is part of pynxtools-xas.
 #
 # SPDX-License-Identifier: Apache-2.0
-"""Utilities to check for versioning."""
+"""Version helpers, re-exported from pynxtools core.
 
-import re
-from collections.abc import Iterable
-from typing import TypeAlias
+They live in ``pynxtools.dataconverter.readers.parsers.versioning``. This
+module stays so that existing imports keep working.
+"""
 
-VersionTuple: TypeAlias = tuple[int | str, ...]
-VersionRange: TypeAlias = tuple[VersionTuple, VersionTuple | None]
+from pynxtools.dataconverter.readers.parsers.versioning import (
+    VersionRange,
+    VersionTuple,
+    format_version,
+    format_version_ranges,
+    is_version_supported,
+    normalize_version,
+    version_ranges_overlap,
+)
 
-
-def _format_version(version: VersionTuple) -> str:
-    return ".".join(str(x) for x in version)
-
-
-_TOKEN_RE = re.compile(r"\d+|[A-Za-z]+")
-
-
-def normalize_version(raw: str) -> VersionTuple:
-    """
-    Normalize a vendor version string into a comparable tuple.
-
-    Tokenization rules
-    ------------------
-    - Consecutive digits are parsed as integers.
-    - Consecutive letters are upper cased and kept as strings.
-    - All other characters act as separators.
-    - Comparison is purely tuple-based and lexicographic.
-
-    Examples
-    --------
-    "4.75"    -> (4, 75)
-    "4"       -> (4,)
-    "2019R2"  -> (2019, "R", 2)
-    "v3_1"    -> ("V", 3, 1)
-    "3-2"     -> (3, 2)
-    "4.100"   -> (4, 100)
-    """
-    if raw is None:
-        raise TypeError("Version string must not be None.")
-
-    raw = raw.strip()
-    if not raw:
-        raise ValueError("Version string must not be empty.")
-
-    tokens = _TOKEN_RE.findall(raw)
-    if not tokens:
-        raise ValueError(f"Could not extract version tokens from '{raw}'.")
-
-    normalized: list[int | str] = []
-    for token in tokens:
-        if token.isdigit():
-            normalized.append(int(token))
-        else:
-            normalized.append(token.upper())
-
-    return tuple(normalized)
-
-
-def is_version_supported(
-    version: VersionTuple | None,
-    supported_versions: Iterable[VersionRange],
-) -> bool:
-    """
-    Determine whether a normalized version tuple is supported.
-
-    Parameters
-    ----------
-    version
-        Normalized version tuple, or ``None`` if the file carries no version.
-    supported_versions
-        Iterable of half-open version intervals:
-        ``(lower_inclusive, upper_exclusive_or_None)``.
-        An empty iterable means no version constraint: all files are accepted,
-        including those without a version.
-        A non-empty iterable implicitly requires a version — ``None`` is
-        rejected because it cannot fall within any declared range.
-    """
-    # No constraints declared → accept everything, including files without version
-    ranges = tuple(supported_versions)
-    if not ranges:
-        return True
-
-    # Ranges declared but file carries no version → reject
-    if version is None:
-        return False
-
-    for lower, upper in ranges:
-        if upper is None:
-            if version >= lower:
-                return True
-        elif lower <= version < upper:
-            return True
-
-    return False
-
-
-def _version_ranges_overlap(
-    primary_parser_versions: Iterable[VersionRange],
-    required_parser_versions: Iterable[VersionRange],
-) -> bool:
-    """Return True if any range in *primary_parser_versions* overlaps with any
-    range in *required_parser_versions*.
-
-    Ranges are half-open intervals ``[lower, upper)`` with ``upper=None`` meaning
-    unbounded. Two intervals overlap if the lower bound of each interval is
-    strictly below the upper bound of the other, treating ``None`` as +∞.
-
-    Used to check whether a metadata parser's ``supported_primary_parser_versions``
-    is compatible with a primary parser's ``supported_versions``.
-    """
-    for primary_lower, primary_upper in primary_parser_versions:
-        for required_lower, required_upper in required_parser_versions:
-            primary_starts_before_required_ends = (
-                required_upper is None or primary_lower < required_upper
-            )
-            required_starts_before_primary_ends = (
-                primary_upper is None or required_lower < primary_upper
-            )
-
-            if (
-                primary_starts_before_required_ends
-                and required_starts_before_primary_ends
-            ):
-                return True
-
-    return False
+__all__ = [
+    "VersionRange",
+    "VersionTuple",
+    "format_version",
+    "format_version_ranges",
+    "is_version_supported",
+    "normalize_version",
+    "version_ranges_overlap",
+]

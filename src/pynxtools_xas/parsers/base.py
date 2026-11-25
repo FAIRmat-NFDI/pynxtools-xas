@@ -15,7 +15,7 @@ import numpy as np
 from pynxtools_xas.parsers.versioning import (
     VersionRange,
     VersionTuple,
-    _format_version,
+    format_version,
     is_version_supported,
 )
 
@@ -101,15 +101,15 @@ class _Parser(ABC):
     ) -> str:
         path = Path(file)
         file_name = path.name
-        version_str = _format_version(version) if version is not None else "<unknown>"
+        version_str = format_version(version) if version is not None else "<unknown>"
 
         ranges: list[str] = []
         for lower, upper in cls.supported_versions:
-            lower_str = _format_version(lower)
+            lower_str = format_version(lower)
             if upper is None:
                 ranges.append(f">= {lower_str}")
             else:
-                upper_str = _format_version(upper)
+                upper_str = format_version(upper)
                 ranges.append(f"{lower_str} – {upper_str}")
 
         supported_str = ", ".join(ranges) if ranges else "<none>"
