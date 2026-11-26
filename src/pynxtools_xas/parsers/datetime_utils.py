@@ -16,7 +16,7 @@ import datetime
 def parse_datetime(
     datetime_string: str,
     possible_date_formats: list[str] | None = None,
-    tzinfo: datetime.tzinfo = datetime.timezone.utc,
+    tzinfo: datetime.tzinfo = datetime.UTC,
 ) -> str:
     """Convert *datetime_string* to ISO 8601, attaching *tzinfo* if it has none.
 
