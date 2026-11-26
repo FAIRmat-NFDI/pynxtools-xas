@@ -11,8 +11,7 @@ from pathlib import Path
 from typing import Any, ClassVar, Literal
 
 import numpy as np
-
-from pynxtools_xas.parsers.versioning import (
+from pynxtools.dataconverter.readers.parsers.versioning import (
     VersionRange,
     VersionTuple,
     format_version,
